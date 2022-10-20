@@ -7,7 +7,7 @@ It is incredibly poorly written and needs a lot of work. Will be updated over
 coming weeks to reflect my new knowledge I have gained since fall of 2021
 @author: lucas
 """
-
+### READ ABOVE PARAGRAPH ### 
 import numpy as np
 from sklearn import model_selection
 import pandas as pd
