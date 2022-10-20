@@ -29,12 +29,12 @@ from xgboost import XGBClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn import model_selection
 
-fmp = FMP(api_key='2e1211f60d33c4daa1afec46de6d74f4')
+fmp = FMP(api_key='apikey')
 
 #this will pull be used to pull financial statements
 def tickers():
 #html for tradeable tickers
-    html1 = "https://financialmodelingprep.com/api/v3/available-traded/list?apikey=2e1211f60d33c4daa1afec46de6d74f4"
+    html1 = "https://financialmodelingprep.com/api/v3/available-traded/list?apikey=apikey"
     #request the html
     x1 = requests.get(html1)
     #convert to json
@@ -44,7 +44,7 @@ def tickers():
     return tradeable
 #repeat the protocol with total stock list
 def stocks():
-    html2 = "https://financialmodelingprep.com/api/v3/stock/list?apikey=2e1211f60d33c4daa1afec46de6d74f4"
+    html2 = "https://financialmodelingprep.com/api/v3/stock/list?key=apikey"
     x2 = requests.get(html2)
     json2 = x2.json()
     symbols = json_normalize(json2)
@@ -71,7 +71,7 @@ def pull2(i,t,prices,ratios,caps,profiles):
         if len(Iprices) != len(Icap) or len(Icap) != len(Iratios) or len(Iratios) != len(Iprofile):
             raise Exception("not equal in length")
 
-        html = "https://financialmodelingprep.com/api/v3/historical-price-full/"+t[i]+"?apikey=2e1211f60d33c4daa1afec46de6d74f4"
+        html = "https://financialmodelingprep.com/api/v3/historical-price-full/"+t[i]+"?apikey=apikey"
     #request the html
         x = requests.get(html)
     #convert to json
@@ -83,7 +83,7 @@ def pull2(i,t,prices,ratios,caps,profiles):
         prices.append(df)
     #sleep to prevent too many api calls
     #time.sleep(.2)
-        html = "https://financialmodelingprep.com/api/v3/ratios/"+t[i]+"?apikey=2e1211f60d33c4daa1afec46de6d74f4"
+        html = "https://financialmodelingprep.com/api/v3/ratios/"+t[i]+"?apikey=apikey"
     #request the html
         x = requests.get(html)
     #convert to json
@@ -94,14 +94,14 @@ def pull2(i,t,prices,ratios,caps,profiles):
         ratios.append(df)
     #add wait period to not overload api above 300 calls per minute
     #time.sleep(.2)
-        html = "https://financialmodelingprep.com/api/v3/historical-market-capitalization/"+t[i]+"?apikey=2e1211f60d33c4daa1afec46de6d74f4"
+        html = "https://financialmodelingprep.com/api/v3/historical-market-capitalization/"+t[i]+"?apikey=apikey"
         x = requests.get(html)
         json = x.json()
         df = json_normalize(json)
     #time.sleep(.2)
         caps.append(df)
 
-        html = "https://financialmodelingprep.com/api/v3/profile/"+t[i]+"?apikey=2e1211f60d33c4daa1afec46de6d74f4"
+        html = "https://financialmodelingprep.com/api/v3/profile/"+t[i]+"?apikey=apikey"
         x = requests.get(html)
         json = x.json()
         df = json_normalize(json)
